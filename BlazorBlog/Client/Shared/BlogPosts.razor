@@ -20,8 +20,8 @@
 @code {
     private List<BlogPost> Posts = new List<BlogPost>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Posts = BlogService.GetBlogPosts();
+        Posts = await BlogService.GetBlogPosts();
     }
 }
