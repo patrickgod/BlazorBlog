@@ -1,0 +1,47 @@
+﻿@page "/create"
+@inject BlazorBlog.Client.Services.IBlogService BlogService
+@inject NavigationManager NavigationManager
+
+<h3>Create a New Blog Post</h3>
+
+<EditForm Model="@newBlogPost" OnValidSubmit="CreateNewBlogPost">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="title">Title</label>
+        <InputText id="title" @bind-Value="newBlogPost.Title" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Title)" />
+    </div>
+    <div class="form-group">
+        <label for="url">Url</label>
+        <InputText id="url" @bind-Value="newBlogPost.Url" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Url)" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <InputText id="description" @bind-Value="newBlogPost.Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <InputTextArea id="content" @bind-Value="newBlogPost.Content" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="date">Date</label>
+        <InputDate id="date" @bind-Value="newBlogPost.DateCreated" class="form-control" />
+    </div>
+    <div class="form-check">
+        <InputCheckbox id="isPublished" @bind-Value="newBlogPost.IsPublished" class="form-check-input" />
+        <label for="isPublished">Publish</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    BlazorBlog.Shared.BlogPost newBlogPost = new BlazorBlog.Shared.BlogPost();
+
+    async Task CreateNewBlogPost()
+    {
+        var result = await BlogService.CreateNewBlogPost(newBlogPost);
+        NavigationManager.NavigateTo($"posts/{result.Url}");
+    }
+}
