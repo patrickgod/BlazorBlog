@@ -21,7 +21,7 @@ namespace BlazorBlog.Server.Controllers
         [HttpGet]
         public ActionResult<List<BlogPost>> GimmeAllTheBlogPosts()
         {
-            return Ok(_context.BlogPosts);
+            return Ok(_context.BlogPosts.OrderByDescending(post => post.DateCreated));
         }
 
         [HttpGet("{url}")]
