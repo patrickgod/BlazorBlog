@@ -11,11 +11,6 @@
         <InputText id="title" @bind-Value="newBlogPost.Title" class="form-control" />
         <ValidationMessage For="@(() => newBlogPost.Title)" />
     </div>
-    <div class="form-group">
-        <label for="url">Url</label>
-        <InputText id="url" @bind-Value="newBlogPost.Url" class="form-control" />
-        <ValidationMessage For="@(() => newBlogPost.Url)" />
-    </div>
     <div class="form-control-file">
         <label for="image">Image</label>
         <InputFile OnChange="OnFileChange" />
